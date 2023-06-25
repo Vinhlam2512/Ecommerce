@@ -5,36 +5,53 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EcommerceClient
 build_property.RootNamespace = EcommerceClient
-build_property.ProjectDir = D:\PROJECT\Ecommerce\Ecommerce\EcommerceClient\
+build_property.ProjectDir = D:\Study\Ky8\PRN231\Project\Ecommerce\Ecommerce\EcommerceClient\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\PROJECT\Ecommerce\Ecommerce\EcommerceClient
+build_property.MSBuildProjectDirectory = D:\Study\Ky8\PRN231\Project\Ecommerce\Ecommerce\EcommerceClient
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/PROJECT/Ecommerce/Ecommerce/EcommerceClient/Areas/Admin/Views/Home/Index2.cshtml]
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Areas/Admin/Views/Home/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleDIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PROJECT/Ecommerce/Ecommerce/EcommerceClient/Views/Home/Index.cshtml]
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/About/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/Contact/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PROJECT/Ecommerce/Ecommerce/EcommerceClient/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/Product/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PROJECT/Ecommerce/Ecommerce/EcommerceClient/Views/_ViewImports.cshtml]
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/ShoppingCart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcHBpbmdDYXJ0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PROJECT/Ecommerce/Ecommerce/EcommerceClient/Views/_ViewStart.cshtml]
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PROJECT/Ecommerce/Ecommerce/EcommerceClient/Views/Shared/_Layout.cshtml]
+[D:/Study/Ky8/PRN231/Project/Ecommerce/Ecommerce/EcommerceClient/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-zfvnprg9c5

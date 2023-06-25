@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PROJECT\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj": {}
+    "D:\\Study\\Ky8\\PRN231\\Project\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj": {}
   },
   "projects": {
-    "D:\\PROJECT\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj": {
+    "D:\\Study\\Ky8\\PRN231\\Project\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROJECT\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj",
+        "projectUniqueName": "D:\\Study\\Ky8\\PRN231\\Project\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj",
         "projectName": "EcommerceClient",
-        "projectPath": "D:\\PROJECT\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj",
-        "packagesPath": "C:\\Users\\VINH\\.nuget\\packages\\",
-        "outputPath": "D:\\PROJECT\\Ecommerce\\Ecommerce\\EcommerceClient\\obj\\",
+        "projectPath": "D:\\Study\\Ky8\\PRN231\\Project\\Ecommerce\\Ecommerce\\EcommerceClient\\EcommerceClient.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\Study\\Ky8\\PRN231\\Project\\Ecommerce\\Ecommerce\\EcommerceClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\VINH\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
