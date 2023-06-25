@@ -57,19 +57,18 @@
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li>
-                                <a href="/Index">Home</a>
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                @*<a href="/Index">Home</a>*@
                             </li>
 
                             <li>
-                                <a href="/Pr0duct/Index">Shop</a>
+                                <a asp-area="" asp-controller="Product" asp-action="Index">Shop</a>
+                                @*<a href="/Product/Index">Shop</a>*@
                             </li>
 
                             <li class="label1" data-label1="hot">
-                                <a href="shoping-cart.html">Features</a>
-                            </li>
-
-                            <li>
-                                <a href="blog.html">Blog</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">Features</a>
+                                @*<a href="shoping-cart.html">Features</a>*@
                             </li>
 
                             <li>
