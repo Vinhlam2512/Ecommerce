@@ -12,6 +12,8 @@ namespace BusinessObject.Models
             ChatMessageSenders = new HashSet<ChatMessage>();
             Orders = new HashSet<Order>();
             Reviews = new HashSet<Review>();
+
+            IsSeller = 0;
         }
 
         public int Id { get; set; }
