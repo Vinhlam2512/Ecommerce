@@ -271,6 +271,24 @@
     $('.js-show-modal1').on('click',function(e){
         e.preventDefault();
         $('.js-modal1').addClass('show-modal1');
+        var productId = $(this).data("product-id");
+
+        $.ajax({
+            url: "https://localhost:7283/api/Product/GetProductById/" + productId,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $("#productImage").attr("src", data.productImage);
+                $("#productName").text(data.productName);
+                $("#productDescription").text(data.productDescription);
+                $("#productPrice").text(data.productPrice);
+                console.log(productId);
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
     });
 
     $('.js-hide-modal1').on('click',function(){

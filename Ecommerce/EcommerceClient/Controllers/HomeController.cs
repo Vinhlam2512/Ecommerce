@@ -43,6 +43,6 @@ namespace EcommerceClient.Controllers {
 
 			return View(product);
 		}
-      
+
     }
 }

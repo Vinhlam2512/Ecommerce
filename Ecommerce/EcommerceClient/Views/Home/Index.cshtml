@@ -162,9 +162,6 @@
 					</div>
 				</div>
 
-			<div class="item-slick1" style="background-image: url(https://www.converse.co.za/media/wysiwyg/GRAN_CRFT_eComm_WB_1_6.jpg);">
-
-				</div>
 
 			<div class="item-slick1" style="background-image: url(https://images.vans.com/is/image/VansBrand/SP23_KnuSkool_1420x568?$fullres$);">
 					<div class="container h-full">
@@ -243,12 +240,12 @@
 									<!-- Block2 -->
 									<div class="block2">
 										<div class="block2-pic hov-img0">
-											@*<img @Html.DisplayFor(modelItem => item.Image) alt="IMG-PRODUCT">*@
-											<img src="images/product-01.jpg" alt="IMG-PRODUCT">
+											<img @Html.DisplayFor(modelItem => item.Image) alt="IMG-PRODUCT">
+											@*<img src="images/product-01.jpg" alt="IMG-PRODUCT">*@
 
-											<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+											<button data-product-id="@item.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 												Quick View
-											</a>
+											</button>
 
 										</div>
 
@@ -256,7 +253,7 @@
 											<div class="block2-txt-child1 flex-col-l ">
 
 												<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-													asp-area="" asp-controller="ProductDetail" asp-action="Index" asp-route-id="@item.Id">Only Check Trouser</a>
+											   asp-area="" asp-controller="ProductDetail" asp-action="Index" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
 												
 												<span class="stext-105 cl3">
 													@Html.DisplayFor(modelItem => item.Price)
@@ -388,9 +385,9 @@
 											@*<img @Html.DisplayFor(modelItem => item.Image) alt="IMG-PRODUCT">*@
 											<img src="images/product-01.jpg" alt="IMG-PRODUCT">
 
-											<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+											<button data-product-id="@item.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 												Quick View
-											</a>
+											</button>
 
 										</div>
 
@@ -444,7 +441,7 @@
 							<div class="slick3 gallery-lb">
 								<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
 									<div class="wrap-pic-w pos-relative">
-										<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+										<img src="" alt="IMG-PRODUCT" id="productImage">
 
 										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 											<i class="fa fa-expand"></i>
@@ -478,16 +475,13 @@
 
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
-						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							Lightweight Jacket
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14" id="productName">
 						</h4>
 
-						<span class="mtext-106 cl2">
-							$58.79
+						<span class="mtext-106 cl2" id="productPrice">
 						</span>
 
-						<p class="stext-102 cl3 p-t-23">
-							Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+						<p class="stext-102 cl3 p-t-23" id="productDescription">
 						</p>
 
 						<!--  -->
