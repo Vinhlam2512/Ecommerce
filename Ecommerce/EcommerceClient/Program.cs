@@ -22,7 +22,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "MyArea",
-    pattern: "{area}/{controller}/{action}/{id?}");
+    pattern: "{area}/{controller}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
