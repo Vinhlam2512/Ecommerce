@@ -8,5 +8,6 @@ using BusinessObject.Models;
 
 namespace DataAccess.Interface {
     public interface IProductRepository : IRepository<Product, int> {
+        int GetLastId();
     }
 }

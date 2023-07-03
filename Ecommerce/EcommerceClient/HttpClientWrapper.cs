@@ -10,7 +10,7 @@ namespace EcommerceClient {
         private static readonly Lazy<HttpClient> LazyInstance = new Lazy<HttpClient>(() =>
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:7004");
+            httpClient.BaseAddress = new Uri("https://localhost:7283/");
             return httpClient;
         });
 

@@ -12,5 +12,6 @@ namespace DataAccess.Interface {
         T Delete(K id);
         T Update(T entity);
         T Create(T entity);
+        T IsExist(K id);
     }
 }

@@ -3,6 +3,9 @@ using DataAccess.Interface;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EcommerceAPI.Controllers
 {
@@ -26,9 +29,9 @@ namespace EcommerceAPI.Controllers
 			{
 				return Ok(_proRepo.GetAll());
 			}
-			catch
+			catch(Exception ex)
 			{
-				return BadRequest();
+				return BadRequest(ex.Message);
 			}
 		}
 
@@ -39,9 +42,9 @@ namespace EcommerceAPI.Controllers
 			{
 				return Ok(_cateRepo.GetAll());
 			}
-			catch
+			catch(Exception ex)
 			{
-				return BadRequest();
+				return BadRequest(ex.Message);
 			}
 		}
 
@@ -53,46 +56,95 @@ namespace EcommerceAPI.Controllers
 				Product product = _proRepo.GetById(id);
 				if (product == null)
 				{
-					return NotFound();
+					throw new NullReferenceException($"Cant find product with {id}!");
 				}
 				return Ok(product);
 			}
-			catch
+			catch(Exception ex)
 			{
-				return BadRequest();
+				return BadRequest(ex.Message);
 			}
 		}
+
+		public class ProductPost
+        {
+			public int Id { get; set; }
+			public string Name { get; set; } = null!;
+			public string Description { get; set; } = null!;
+			public decimal Price { get; set; }
+			public string Image { get; set; } = null!;
+			public int CategoryId { get; set; }
+            public string extension { get; set; }
+        }
 
 		[HttpPost]
-		public IActionResult AddProduct(Product product)
+		public IActionResult AddProduct(ProductPost product)
 		{
 			try
 			{
-				Product createProduct = _proRepo.Create(product);
+				if (string.IsNullOrEmpty(product.Image))
+				{
+					throw new Exception("No image file uploaded.");
+				}
+
+				// Decode the base64 image data
+				string base64Data = product.Image.Split(',')[1];
+				byte[] imageData = Convert.FromBase64String(base64Data);
+
+				// Generate a unique file name for the image
+				int id = _proRepo.GetLastId();
+				string nameOfImg = $"Product{id + 1}.{product.extension}";
+
+				// Construct the file path
+				string filePath = Path.Combine(AppContext.BaseDirectory, "wwwroot", "imgProduct", nameOfImg);
+
+				// Save the image file
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					stream.Write(imageData, 0, imageData.Length);
+				}
+
+				Product p = new Product()
+				{
+					Id = product.Id,
+					Name = product.Name,
+					Description = product.Description,
+					Price = product.Price,
+					Image = filePath,
+					CategoryId = product.CategoryId
+				};
+
+				// Continue with the rest of your code
+				Product createProduct = _proRepo.Create(p);
 				return Ok(createProduct);
 			}
-			catch
+			catch (Exception ex)
 			{
-				return BadRequest();
+				return BadRequest(ex.Message);
 			}
 		}
 
-		[HttpPut("{id}")]
-		public IActionResult UpdateProduct(int id, Product product)
+
+
+		[HttpPost("{id}")]
+		public IActionResult UpdateProduct(Product product)
 		{
-			if (id != product.Id)
-			{
-				return NotFound();
-			}
+            
 
 			try
 			{
+				Product p = _proRepo.IsExist(product.Id);
+				if(p == null)
+                {
+					throw new NullReferenceException($"Product does not exist!");
+                }
+
 				_proRepo.Update(product);
 				return Ok();
 			}
-			catch
+			catch(Exception ex)
 			{
-				return BadRequest();
+				return BadRequest(ex.Message);
 			}
 		}
 
@@ -104,9 +156,9 @@ namespace EcommerceAPI.Controllers
 				_proRepo.Delete(id);
 				return Ok();
 			}
-			catch
+			catch(Exception ex)
 			{
-				return BadRequest();
+				return BadRequest(ex.Message);
 			}
 		}
 	}
