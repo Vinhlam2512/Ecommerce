@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceClient.Areas.Admin.Controllers {
+
+    [Area("Admin")]
     public class DashBoardController : Controller {
         public IActionResult Index()
         {

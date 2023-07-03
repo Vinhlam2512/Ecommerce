@@ -140,5 +140,26 @@ namespace DataAccess.Interface {
                 throw new Exception(ex.Message);
             }
         }
+
+        public T IsExist(K id)
+        {
+            try
+            {
+                T? obj = dbSet.Find(id);
+                if (obj == null)
+                {
+                    throw new Exception($"{typeof(T).Name} with ID {id} does not exist!");
+                }
+                else
+                {
+                    return obj;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
