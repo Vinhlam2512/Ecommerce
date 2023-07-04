@@ -6,109 +6,209 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>List Product</h1>
+<div style="padding: 0 10px">
+    <h1>List Product</h1>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateModal">Create New</button>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateModal">Create New</button>
+    <table class="table" style="margin-top: 20px">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody id="productTableBody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <img src="../imgProduct/@item.Image" alt="Image Product" style="width: 150px; height: 150px; object-fit: cover" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditModal" onclick="GetProduct(@item.Id)">Edit</button> |
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#DetailModal" onclick="GetProduct(@item.Id)">Details</button> |
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EditModal" onclick="GetProduct(@item.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<div class="modal fade" id="CreateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="CreateModal" aria-hidden="true">
-    <div class="modal-dialog" style="min-width: 70%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="name" class="control-label">Product Name:</label>
-                            <input id="name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="desc" class="control-label">Description:</label>
-                            <textarea id="desc" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="price" class="control-label">Price</label>
-                            <input id="price" type="number" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="img" class="control-label">Choose img</label>
-                            <input id="img" type="file" accept="image/*" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="cate_id" class="control-label">Category</label>
-                            <select id="cate_id" class="form-control">
-                                @foreach (Category c in @ViewBag.Cate)
-                                {
-                                    <option value="@c.CategoryId">@c.CategoryName</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input onclick="CreateProduct()" value="Create" class="btn btn-primary" />
+    <div class="modal fade" id="CreateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="CreateModal" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 70%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Product Name:</label>
+                                <input id="name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="desc" class="control-label">Description:</label>
+                                <textarea id="desc" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="control-label">Price</label>
+                                <input id="price" type="number" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="img" class="control-label">Choose img</label>
+                                <input id="img" type="file" accept="image/*" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cate_id" class="control-label">Category</label>
+                                <select id="cate_id" class="form-control">
+                                    @foreach (Category c in @ViewBag.Cate)
+                                    {
+                                        <option value="@c.CategoryId">@c.CategoryName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input onclick="CreateProduct()" value="Create" class="btn btn-primary" />
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+     <div class="modal fade" id="DetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DetailModal" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 70%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Product Name:</label>
+                                <input id="name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="desc" class="control-label">Description:</label>
+                                <textarea id="desc" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="control-label">Price</label>
+                                <input id="price" type="number" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="img" class="control-label">Choose img</label>
+                                <input id="img" type="file" accept="image/*" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cate_id" class="control-label">Category</label>
+                                <select id="cate_id" class="form-control">
+                                    @foreach (Category c in @ViewBag.Cate)
+                                    {
+                                        <option value="@c.CategoryId">@c.CategoryName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input onclick="CreateProduct()" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="modal fade" id="EditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="EditModal" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 70%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Product Name:</label>
+                                <input id="name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="desc" class="control-label">Description:</label>
+                                <textarea id="desc" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="control-label">Price</label>
+                                <input id="price" type="number" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="img" class="control-label">Choose img</label>
+                                <input id="img" type="file" accept="image/*" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cate_id" class="control-label">Category</label>
+                                <select id="cate_id" class="form-control">
+                                    @foreach (Category c in @ViewBag.Cate)
+                                    {
+                                        <option value="@c.CategoryId">@c.CategoryName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input onclick="CreateProduct()" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    
     const CreateProduct = () => {
+        console.log('asd');
         var name = $('#name').val();
         var desc = $('#desc').val();
         var price = $('#price').val();
@@ -140,7 +240,9 @@
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function(response) {
-                    console.log(response);
+                    $('#CreateModal').modal('hide');
+                    showToast('Green', 'Success', 'Create product success!');
+                    LoadAllProduct();
                 },
                 error: function(xhr, status, error) {
                     console.log(error);
@@ -150,5 +252,48 @@
 
         reader.readAsDataURL(imgFile);
     }
+
+    const LoadAllProduct = () => {
+        $.ajax({
+            url: 'https://localhost:7283/api/Product/GetProducts',
+            method: 'GET',
+            success: function(response) {
+                $('#productTableBody').empty();
+
+                // Iterate over the array of products
+                for (var i = 0; i < response.length; i++) {
+                    var product = response[i];
+
+                    // Construct the HTML for the table row
+                    var productHtml = '<tr>' +
+                        '<td>' + product.name + '</td>' +
+                        '<td>' + product.description + '</td>' +
+                        '<td>' + product.price + '</td>' +
+                        '<td><img src="../imgProduct/' + product.image + '" alt="Image Product" style="width: 150px; height: 150px; object-fit: cover" /></td>' +
+                        '<td>' + product.category.categoryName + '</td>' +
+                        '<td>' +
+                        '<button type="button" class="btn btn-primary" onclick="GetProduct(' + product.id + ')">Edit</button> |' +
+                        '<button type="button" class="btn btn-success" onclick="GetProduct(' + product.id + ')">Details</button> |' +
+                        '<button type="button" class="btn btn-danger" onclick="GetProduct(' + product.id + ')">Delete</button>' +
+                        '</td>' +
+                        '</tr>';
+
+                    // Append the generated HTML to the table body
+                    $('#productTableBody').append(productHtml);
+                }
+            }
+        });
+    }
+
+    const GetProduct = id => {
+         $.ajax({
+            url: 'https://localhost:7283/api/Product/GetProductById/' + id,
+            method: 'GET',
+            success: function(response) {
+                console.log(response)
+            }
+        });
+    }
+
 
 </script>
