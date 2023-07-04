@@ -27,7 +27,7 @@ namespace EcommerceAPI.Controllers
 		{
 			try
 			{
-				return Ok(_proRepo.GetAll());
+				return Ok(_proRepo.GetAll(x => x.Category));
 			}
 			catch(Exception ex)
 			{
@@ -53,7 +53,7 @@ namespace EcommerceAPI.Controllers
 		{
 			try
 			{
-				Product product = _proRepo.GetById(id);
+				Product product = _proRepo.GetById(id, x => x.Category);
 				if (product == null)
 				{
 					throw new NullReferenceException($"Cant find product with {id}!");
@@ -96,7 +96,7 @@ namespace EcommerceAPI.Controllers
 				string nameOfImg = $"Product{id + 1}.{product.extension}";
 
 				// Construct the file path
-				string filePath = Path.Combine(AppContext.BaseDirectory, "wwwroot", "imgProduct", nameOfImg);
+				string filePath = Path.Combine(Directory.GetCurrentDirectory(),"..", "EcommerceClient", "wwwroot", "imgProduct", nameOfImg);
 
 				// Save the image file
 				using (var stream = new FileStream(filePath, FileMode.Create))
@@ -110,7 +110,7 @@ namespace EcommerceAPI.Controllers
 					Name = product.Name,
 					Description = product.Description,
 					Price = product.Price,
-					Image = filePath,
+					Image = nameOfImg,
 					CategoryId = product.CategoryId
 				};
 
