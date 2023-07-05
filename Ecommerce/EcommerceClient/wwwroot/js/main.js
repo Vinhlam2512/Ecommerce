@@ -279,11 +279,12 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                $("#productImage").attr("src", data.productImage);
-                $("#productName").text(data.productName);
-                $("#productDescription").text(data.productDescription);
-                $("#productPrice").text(data.productPrice);
-                console.log(productId);
+                $("#imageSmall").attr('data-thumb', 'imgProduct/' + data.image);
+                $("#imageExpand").attr('href', 'imgProduct/' + data.image);
+                $("#productImage").attr('src', 'imgProduct/' + data.image);
+                $("#productName").text(data.name);
+                $("#productDescription").text(data.description);
+                $("#productPrice").text(data.price);
             },
             error: function (error) {
                 alert(error);
