@@ -6,13 +6,12 @@ namespace BusinessObject.Models
     public partial class Inventory
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public int SizeId { get; set; }
-        public int ColorId { get; set; }
+        public string ProductName { get; set; } = null!;
+        public string Size { get; set; } = null!;
+        public string Color { get; set; } = null!;
         public int Quantity { get; set; }
 
-        public virtual Color Color { get; set; } = null!;
-        public virtual Product Product { get; set; } = null!;
-        public virtual Size Size { get; set; } = null!;
+        public virtual Color ColorNavigation { get; set; } = null!;
+        public virtual Size SizeNavigation { get; set; } = null!;
     }
 }

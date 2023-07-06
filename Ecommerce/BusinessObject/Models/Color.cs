@@ -12,7 +12,7 @@ namespace BusinessObject.Models
             OrderDetails = new HashSet<OrderDetail>();
         }
 
-        public int ColorId { get; set; }
+        public string ColorId { get; set; } = null!;
         public string ColorName { get; set; } = null!;
 
         public virtual ICollection<Cart> Carts { get; set; }

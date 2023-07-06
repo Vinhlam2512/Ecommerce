@@ -25,7 +25,6 @@ namespace BusinessObject.Models
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Review> Reviews { get; set; } = null!;
-        public virtual DbSet<Sale> Sales { get; set; } = null!;
         public virtual DbSet<Size> Sizes { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -46,35 +45,38 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.ColorId).HasColumnName("COLOR_ID");
+                entity.Property(e => e.Color)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("COLOR");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnType("datetime")
                     .HasColumnName("DATE_ADDED");
 
-                entity.Property(e => e.ProductId).HasColumnName("PRODUCT_ID");
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("PRODUCT_NAME");
 
                 entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
-                entity.Property(e => e.SizeId).HasColumnName("SIZE_ID");
+                entity.Property(e => e.Size)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("SIZE");
 
                 entity.Property(e => e.UserId).HasColumnName("USER_ID");
 
-                entity.HasOne(d => d.Color)
+                entity.HasOne(d => d.ColorNavigation)
                     .WithMany(p => p.Carts)
-                    .HasForeignKey(d => d.ColorId)
+                    .HasForeignKey(d => d.Color)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CARTS_COLORS");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.SizeNavigation)
                     .WithMany(p => p.Carts)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CARTS_PRODUCTS");
-
-                entity.HasOne(d => d.Size)
-                    .WithMany(p => p.Carts)
-                    .HasForeignKey(d => d.SizeId)
+                    .HasForeignKey(d => d.Size)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CARTS_SIZES");
 
@@ -132,7 +134,10 @@ namespace BusinessObject.Models
             {
                 entity.ToTable("COLORS");
 
-                entity.Property(e => e.ColorId).HasColumnName("COLOR_ID");
+                entity.Property(e => e.ColorId)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("COLOR_ID");
 
                 entity.Property(e => e.ColorName)
                     .HasMaxLength(255)
@@ -146,29 +151,32 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.ColorId).HasColumnName("COLOR_ID");
+                entity.Property(e => e.Color)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("COLOR");
 
-                entity.Property(e => e.ProductId).HasColumnName("PRODUCT_ID");
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("PRODUCT_NAME");
 
                 entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
-                entity.Property(e => e.SizeId).HasColumnName("SIZE_ID");
+                entity.Property(e => e.Size)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("SIZE");
 
-                entity.HasOne(d => d.Color)
+                entity.HasOne(d => d.ColorNavigation)
                     .WithMany(p => p.Inventories)
-                    .HasForeignKey(d => d.ColorId)
+                    .HasForeignKey(d => d.Color)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_INVENTORY_COLORS");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.SizeNavigation)
                     .WithMany(p => p.Inventories)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_INVENTORY_PRODUCTS");
-
-                entity.HasOne(d => d.Size)
-                    .WithMany(p => p.Inventories)
-                    .HasForeignKey(d => d.SizeId)
+                    .HasForeignKey(d => d.Size)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_INVENTORY_SIZES");
             });
@@ -214,7 +222,10 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.ColorId).HasColumnName("COLOR_ID");
+                entity.Property(e => e.Color)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("COLOR");
 
                 entity.Property(e => e.OrderId).HasColumnName("ORDER_ID");
 
@@ -222,15 +233,21 @@ namespace BusinessObject.Models
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("PRICE");
 
-                entity.Property(e => e.ProductId).HasColumnName("PRODUCT_ID");
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("PRODUCT_NAME");
 
                 entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
-                entity.Property(e => e.SizeId).HasColumnName("SIZE_ID");
+                entity.Property(e => e.Size)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("SIZE");
 
-                entity.HasOne(d => d.Color)
+                entity.HasOne(d => d.ColorNavigation)
                     .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.ColorId)
+                    .HasForeignKey(d => d.Color)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ORDER_DETAILS_COLORS");
 
@@ -240,15 +257,9 @@ namespace BusinessObject.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ORDER_DETAILS_ORDERS");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.SizeNavigation)
                     .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ORDER_DETAILS_PRODUCTS");
-
-                entity.HasOne(d => d.Size)
-                    .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.SizeId)
+                    .HasForeignKey(d => d.Size)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ORDER_DETAILS_SIZES");
             });
@@ -257,7 +268,9 @@ namespace BusinessObject.Models
             {
                 entity.ToTable("PRODUCTS");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CategoryId).HasColumnName("CATEGORY_ID");
 
@@ -317,36 +330,14 @@ namespace BusinessObject.Models
                     .HasConstraintName("FK_REVIEWS_USERS");
             });
 
-            modelBuilder.Entity<Sale>(entity =>
-            {
-                entity.ToTable("SALES");
-
-                entity.Property(e => e.SaleId).HasColumnName("SALE_ID");
-
-                entity.Property(e => e.EndDate)
-                    .HasColumnType("date")
-                    .HasColumnName("END_DATE");
-
-                entity.Property(e => e.ProductId).HasColumnName("PRODUCT_ID");
-
-                entity.Property(e => e.SalePrice).HasColumnName("SALE_PRICE");
-
-                entity.Property(e => e.StartDate)
-                    .HasColumnType("date")
-                    .HasColumnName("START_DATE");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Sales)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SALES_PRODUCTS");
-            });
-
             modelBuilder.Entity<Size>(entity =>
             {
                 entity.ToTable("SIZES");
 
-                entity.Property(e => e.SizeId).HasColumnName("SIZE_ID");
+                entity.Property(e => e.SizeId)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("SIZE_ID");
 
                 entity.Property(e => e.SizeName)
                     .HasMaxLength(255)
