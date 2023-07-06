@@ -126,11 +126,10 @@ namespace EcommerceAPI.Controllers
 
 
 
-		[HttpPost("{id}")]
-		public IActionResult UpdateProduct(Product product)
+		[HttpPost()]
+		public IActionResult UpdateProduct(ProductPost product)
 		{
             
-
 			try
 			{
 				Product p = _proRepo.IsExist(product.Id);
@@ -139,7 +138,39 @@ namespace EcommerceAPI.Controllers
 					throw new NullReferenceException($"Product does not exist!");
                 }
 
-				_proRepo.Update(product);
+				if (string.IsNullOrEmpty(product.Image))
+				{
+					throw new Exception("No image file uploaded.");
+				}
+
+				// Decode the base64 image data
+				string base64Data = product.Image.Split(',')[1];
+				byte[] imageData = Convert.FromBase64String(base64Data);
+
+				// Generate a unique file name for the image
+				string nameOfImg = $"Product{product.Id + 1}.{product.extension}";
+
+				// Construct the file path
+				string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "EcommerceClient", "wwwroot", "imgProduct", nameOfImg);
+
+				// Save the image file
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					stream.Write(imageData, 0, imageData.Length);
+				}
+
+				Product productUpdate = new Product()
+				{
+					Id = product.Id,
+					Name = product.Name,
+					Description = product.Description,
+					Price = product.Price,
+					Image = nameOfImg,
+					CategoryId = product.CategoryId
+				};
+
+
+				_proRepo.Update(productUpdate);
 				return Ok();
 			}
 			catch(Exception ex)
@@ -153,8 +184,8 @@ namespace EcommerceAPI.Controllers
 		{
 			try
 			{
-				_proRepo.Delete(id);
-				return Ok();
+				Product p = _proRepo.Delete(id);
+				return Ok(p);
 			}
 			catch(Exception ex)
 			{
