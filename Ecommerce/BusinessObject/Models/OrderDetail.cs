@@ -13,8 +13,6 @@ namespace BusinessObject.Models
         public int Quantity { get; set; }
         public decimal Price { get; set; }
 
-        public virtual Color ColorNavigation { get; set; } = null!;
         public virtual Order Order { get; set; } = null!;
-        public virtual Size SizeNavigation { get; set; } = null!;
     }
 }

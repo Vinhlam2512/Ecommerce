@@ -1,4 +1,4 @@
-
+﻿
 (function ($) {
     "use strict";
 
@@ -296,6 +296,85 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    
+    // Xử lý sự kiện click nút "Update Cart"
+    $('.update-cart').on('click', function (e) {
+        e.preventDefault();
 
+        // Khởi tạo một mảng chứa các promise
+        var promises = [];
 
+        // Lặp qua từng hàng trong giỏ hàng
+        $('.table_row').each(function () {
+            var productId = $(this).data('product-id');
+            var quantity = parseInt($(this).find('.num-product').val());
+
+            // Gọi API để cập nhật số lượng sản phẩm
+            var promise = $.ajax({
+                url: 'https://localhost:7283/api/ShoppingCart/UpdateCart/' + productId, // Địa chỉ URL của API cập nhật số lượng
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: productId, quantity: quantity }),
+                headers: {
+                    'Authorization': 'Bearer Ecommerce-ApplicationSecretKey'
+                }
+            });
+
+            promises.push(promise);
+        });
+
+        // Đợi cho tất cả các promise hoàn thành
+        $.when.apply($, promises).done(function () {
+            // Cập nhật giao diện người dùng
+            $('.table_row').each(function () {
+                var productId = $(this).data('product-id');
+                var quantity = parseInt($(this).find('.num-product').val());
+                var price = parseFloat($(this).find('.column-3').text().replace('$ ', ''));
+                var total = quantity * price;
+
+                $(this).find('.column-5').text('$ ' + total.toFixed(2));
+                $('.size-209').find('.mtext-110').text('$ ' + total.toFixed(2));
+            });
+        });
+    });
+
+    $("input[name='search-product']").on("input", function (e) {
+        e.preventDefault();
+        Search();
+
+        function Search() {
+            var searchTerm = $("input[name='search-product']").val();
+            $.ajax({
+                url: "https://localhost:7283/api/Product/SearchProduct?search=" + searchTerm,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $('.isotope-grid').empty();
+                    for (var i = 0; i < response.length; i++) {
+                        var item = response[i];
+                        var productHtml = '<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">' +
+                            '<div class="block2">' +
+                            '<div class="block2-pic hov-img0">' +
+                            '<img src="../imgProduct/' + item.image + '" alt="IMG-PRODUCT">' +
+                            '<button data-product-id="' + item.id + '" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">Quick View</button > ' +
+                            '</div>' +
+                            '<div class="block2-txt flex-w flex-t p-t-14">' +
+                            '<div class="block2-txt-child1 flex-col-l ">' +
+                            '<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" asp-area="" asp-controller="ProductDetail" asp-action="Index" asp-route-id="' + item.id + '">' + item.name + '</a > ' +
+                            '<span class="stext-105 cl3">$ ' + item.price + '</span > ' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $('.isotope-grid').append(productHtml);
+                    }
+                    
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+    });
 })(jQuery);

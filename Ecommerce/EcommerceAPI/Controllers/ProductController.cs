@@ -66,6 +66,20 @@ namespace EcommerceAPI.Controllers
 			}
 		}
 
+		[HttpGet]
+        public IActionResult SearchProduct(string? search, decimal? toPrice, decimal? fromPrice)
+        {
+            try
+            {
+                var product = _proRepo.SearchProduct(search, toPrice, fromPrice);
+                return Ok(product);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
 		public class ProductPost
         {
 			public int Id { get; set; }
@@ -192,5 +206,7 @@ namespace EcommerceAPI.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+
 	}
 }
