@@ -9,5 +9,6 @@ using BusinessObject.Models;
 namespace DataAccess.Interface {
     public interface IProductRepository : IRepository<Product, int> {
         int GetLastId();
+        List<Product> SearchProduct(string? search, decimal? toPrice, decimal? fromPrice);
     }
 }

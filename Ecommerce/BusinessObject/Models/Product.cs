@@ -7,6 +7,7 @@ namespace BusinessObject.Models
     {
         public Product()
         {
+            Inventories = new HashSet<Inventory>();
             Reviews = new HashSet<Review>();
         }
 
@@ -18,6 +19,7 @@ namespace BusinessObject.Models
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; } = null!;
+        public virtual ICollection<Inventory> Inventories { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }
